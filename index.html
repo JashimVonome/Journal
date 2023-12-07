@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal Entry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #journal {
+            max-width: 800px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #addLineBtn {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #addLineBtn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div id="journal">
+    <h2>Journal Entry</h2>
+    <form id="journalForm">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="journalNo">Journal No</label>
+        <input type="text" id="journalNo" name="journalNo" required>
+
+        <label for="reference">Reference</label>
+        <input type="text" id="reference" name="reference" required>
+
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes"></textarea>
+
+        <label for="journalType">Journal Type</label>
+        <input type="text" id="journalType" name="journalType" required>
+
+        <label for="currency">Currency</label>
+        <input type="text" id="currency" name="currency" required>
+
+        <table id="journalTable">
+            <thead>
+            <tr>
+                <th>Account</th>
+                <th>Description</th>
+                <th>Contact (BDT)</th>
+                <th>Debits</th>
+                <th>Credits</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Rows will be added dynamically using JavaScript -->
+            </tbody>
+        </table>
+
+        <button type="button" id="addLineBtn" onclick="addRow()">Add another line</button>
+
+        <div>
+            <label for="subtotal">Sub Total</label>
+            <input type="text" id="subtotal" name="subtotal" value="0.00" readonly>
+        </div>
+
+        <div>
+            <label for="total">Total (TK)</label>
+            <input type="text" id="total" name="total" value="0.00" readonly>
+        </div>
+    </form>
+</div>
+
+<script>
+    function addRow() {
+        var table = document.getElementById("journalTable").getElementsByTagName('tbody')[0];
+
+        var newRow = table.insertRow(table.rows.length);
+
+        var accounts = ["Select Account", "Account1", "Account2", "Account3"];
+        var contacts = ["Select Contact", "Contact1", "Contact2", "Contact3"];
+
+        for (var i = 0; i < 6; i++) {
+            var cell = newRow.insertCell(i);
+            var select = document.createElement("select");
+            var options = i < 2 ? accounts : contacts;
+
+            for (var j = 0; j < options.length; j++) {
+                var option = document.createElement("option");
+                option.value = options[j];
+                option.text = options[j];
+                select.appendChild(option);
+            }
+
+            cell.appendChild(select);
+        }
+    }
+</script>
+
+</body>
+</html>
